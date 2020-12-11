@@ -1,0 +1,81 @@
+﻿@model TodoListMVCUI.Models.TaskListViewModel
+@using TodoListMVCUI.HtmlHelpers
+
+@{
+    ViewBag.Title = "/Shared/_Layout.cshtml";
+}
+<!DOCTYPE html>
+<div class="container" style="padding-top:5px">
+    <div class="row">
+        <div class="col-lg-4">
+            <img src="~/Images/calendar.png" class="img-responsive" />
+        </div>
+    </div>
+    <h3></h3>
+</div>
+
+<table id="todoList" class="table table-bordered table-responsive table-hover" width="100%">
+    <thead class="thead-dark">
+        <tr style="border-style:solid;border-width:1px">
+            <th class="th-sm" style="border-width:1px">
+                Görevi Oluşturan Kişi
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Görev Açıklaması
+            </th>
+            <th class="th-sm" style="border-width:1px; overflow-x:auto">
+                Yapılma Durumu
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Oluşturulma Tarihi
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Gerçekleşeceği Tarih
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Yeni Görev Ekle
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Görevi Düzenle
+            </th>
+            <th class="th-sm" style="border-width:1px">
+                Görevi Sil
+            </th>
+
+        </tr>
+    </thead>
+
+    @foreach (var taskItem in Model.TaskLists)
+    {
+
+        <tbody>
+            <tr>
+                <td>@taskItem.CreatorName</td>
+                <td>@taskItem.TaskDescription</td>
+                <td>@Html.YesNo(taskItem.IsComplete)</td>
+                <td>@taskItem.CreateTime.ToString("dd.MM.yyyy")</td>
+                <td>@taskItem.TaskTime.ToString("dd.MM.yyyy")</td>
+                <td><a href="@Url.Action("CreateNew","TaskList")" class="btn btn-success">Görev Ekle</a></td>
+                <td><a href="@Url.Action("Edit","TaskList", new {taskId = taskItem.TaskId})" class="btn btn-warning">Görev Düzenle</a></td>
+                <td><a href="@Url.Action("Delete","TaskList", new {taskId = taskItem.TaskId})" class="btn btn-danger">Görev Sil</a></td>
+
+
+            </tr>
+        </tbody>
+
+    }
+</table>
+
+<div class="pager" style="font-display:block; font-family:'Times New Roman';font-size:20px">
+    Sayfalar: @Html.Pager(Model.PagingInfo)
+</div>
+
+
+@*<td>@taskItem.CreatorName</td>
+    <td>@taskItem.TaskDescription</td>
+    <td>@Html.YesNo(taskItem.IsComplete)</td>
+    <td>@taskItem.CreateTime.ToString("dd.MM.yyyy")</td>
+    <td>@taskItem.TaskTime.ToString("dd.MM.yyyy")</td>
+    <td>@Html.ActionLink("GÖREV EKLE", "CreateNew")</td>
+    <td>@Html.ActionLink("GÖREVİ DÜZENLE", "Edit", new { taskId = taskItem.TaskId })</td>
+    <td>@Html.ActionLink("GÖREVİ SİL", "Delete", new { taskId = taskItem.TaskId }) </td>*@

@@ -1,0 +1,61 @@
+﻿@model TodoList.Entities.Concrete.TaskList
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<br />
+<h2 style="color:red">Görevi Sil</h2>
+
+@using (Html.BeginForm())
+{
+    <div class="container container-fluid">
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="~/Images/delete.png" class="img-responsive" />
+            </div>
+        </div>
+    </div>
+    <br />
+    @Html.AntiForgeryToken()
+    <div class="container-fluid">
+
+        <div class="form-group">
+            <div><h4>Görevi Oluşturan Kişi</h4></div>
+            @Html.EditorFor(model => model.CreatorName, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            <div><h4>Görev Açıklaması</h4></div>
+            @Html.EditorFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            @Html.CheckBoxFor(model => model.IsComplete, new { htmlAttributes = new { @class = "form-control" } })
+            Görev Gerçekleşti Mi ? (Evet/Hayır)
+        </div>
+        <div class="form-group">
+            <div><h4>Görevin Oluşturulma Zamanı</h4></div>
+            @Html.EditorFor(model => model.CreateTime, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+        <div class="form-group">
+            <div><h4>Görevin Yapılması Gereken Tarih</h4></div>
+            @Html.EditorFor(model => model.TaskTime, new { htmlAttributes = new { @class = "form-control" } })
+        </div>
+
+        <div><button type="submit" class="btn btn-danger" id="btnDelete" style="width:280px" onclick="location.href = '@Url.Action("Delete","TaskList")', alert('Kayıt Silindi !')">GÖREVİ SİL</button></div>
+        <div>
+            <br />
+            <a href='@Url.Action("Index","TaskList")' class="btn btn-default" style="width:280px; text-align:center" title="Listeye geri dön">
+                Listeye Geri Dön
+                <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+            </a>
+        </div>
+    </div>
+}
+
+
+
+@*@Html.EditorForModel()
+    <input type="button" class="btn-danger" value="SİL" />*@
+
+@*<button type="submit" id="btnDelete" class="btn btn-success btn-md" style="width:280px;left:inherit">GÖREVİ SİL</button>*@
